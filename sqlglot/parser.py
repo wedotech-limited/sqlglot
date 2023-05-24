@@ -2952,7 +2952,11 @@ class Parser(metaclass=_Parser):
             maybe_func = maybe_func and value is None
 
             if value is None:
-                value = exp.DataType(this=exp.DataType.Type.TIMESTAMP, expressions=expressions)
+                 #-> Ashley: Time should not be changed to timestamp
+                if type_token == TokenType.TIME:
+                    value = exp.DataType(this=exp.DataType.Type.TIME, expressions=expressions)
+                else:
+                    value = exp.DataType(this=exp.DataType.Type.TIMESTAMP, expressions=expressions)
         elif type_token == TokenType.INTERVAL:
             unit = self._parse_var()
 
